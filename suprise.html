@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forever Us ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --wine: #4b0015;
+  --rose: #ff4d6d;
+  --glow: rgba(255, 77, 109, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--wine), #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", sans-serif;
+  color: white;
+  overflow: hidden;
+}
+
+/* ---------- COMMON ---------- */
+.card {
+  background: rgba(0,0,0,0.88);
+  padding: 36px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 540px;
+  text-align: center;
+  box-shadow: 0 0 40px var(--glow);
+  animation: fadeIn 1.2s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  color: var(--rose);
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+button {
+  padding: 12px 32px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 15px var(--rose);
+}
+
+.start, .next {
+  background: var(--rose);
+  color: black;
+}
+
+.yes {
+  background: #00ff99;
+  color: black;
+}
+
+.no {
+  background: #444;
+  color: white;
+}
+
+/* ---------- SLIDESHOW ---------- */
+.slideshow {
+  position: relative;
+  height: 300px;
+  margin: 20px 0;
+}
+
+.slideshow img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  opacity: 0;
+  animation: slide 15s infinite;
+}
+
+.slideshow img:nth-child(1) { animation-delay: 0s; }
+.slideshow img:nth-child(2) { animation-delay: 5s; }
+.slideshow img:nth-child(3) { animation-delay: 10s; }
+
+@keyframes slide {
+  0% {opacity: 0;}
+  10% {opacity: 1;}
+  30% {opacity: 1;}
+  40% {opacity: 0;}
+  100% {opacity: 0;}
+}
+
+/* ---------- FINAL BG ---------- */
+.final-bg {
+  position: fixed;
+  inset: 0;
+  background: url("traditional.png") center/cover no-repeat;
+  filter: brightness(0.35);
+  z-index: -1;
+}
+
+/* ---------- HEARTS ---------- */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  color: #ff5e7e;
+  font-size: 18px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* ---------- ANIM ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+</style>
+</head>
+
+<body onclick="startMusic()">
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="C:\Users\likhi\Downloads\Kaanunna Kalyanam.mp3" type="audio/mpeg">
+</audio>
+
+<!-- WELCOME -->
+<div class="card" id="welcome">
+  <h1>Swagatham andii🫣🦋 </h1>
+  <p>
+    College lo start ayina mana journey…  
+    eppatiki continue avvali 😊(my crush)
+  </p>
+
+  <div class="slideshow">
+    <img src="perfect.png">
+    <img src="perfect1.png">
+    <img src="traditional.png">
+  </div>
+
+  <button class="start" onclick="startPromises()">Enter 💖</button>
+</div>
+
+<!-- PROMISES -->
+<div class="card hidden" id="promises">
+  <h1 id="title">Promise 1 💖</h1>
+  <p id="question">Will you feed me forever without saying no?</p>
+
+  <button class="yes" onclick="nextPromise()">Yes, always ❤️</button>
+  <button class="yes" onclick="nextPromise()">Yes, without conditions 💍</button>
+</div>
+
+<!-- FINAL -->
+<div class="final-bg hidden" id="bgFinal"></div>
+
+<div class="card hidden" id="final">
+  <h1>One Last Thing ❤️</h1>
+  <p>
+    Prapancham antha kore Ramude nuvva…?  
+    mari nee sita ni baadhapetaku🦋 .
+    <br><br>
+    Can you be my husband?
+  </p>
+
+  <button class="yes" onclick="yesClicked()">YES 💍</button>
+  <button class="no" onclick="noClicked()">NO</button>
+
+  <div id="msg" style="margin-top:15px;color:#ffb3c1;"></div>
+</div>
+
+<script>
+let step = 1;
+let musicStarted = false;
+
+function startMusic() {
+  if (!musicStarted) {
+    document.getElementById("bgMusic").play();
+    musicStarted = true;
+  }
+}
+
+function startPromises() {
+  document.getElementById("welcome").classList.add("hidden");
+  document.getElementById("promises").classList.remove("hidden");
+}
+
+function nextPromise() {
+  step++;
+
+  if (step === 2) {
+    title.innerText = "Promise 2 💗";
+    question.innerText = "Na chethilo kotinchukodaniki lifelong ready aa?";
+  } 
+  else if (step === 3) {
+    title.innerText = "Promise 3 💕";
+    question.innerText = "Inkem adugudhammm...haa!!nannu em anakunda baga chusko, chuskuntavu kadha?🥺 ";
+  } 
+  else {
+    document.getElementById("promises").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+    document.getElementById("bgFinal").classList.remove("hidden");
+    startHearts();
+  }
+}
+
+function yesClicked() {
+  confettiEffect();
+  document.body.innerHTML = `
+    <div class="final-bg"></div>
+    <div style="text-align:center;padding:40px;">
+      <h1 style="color:#00ff99;">Nuvvu nannu no anadaniki ledhu, you are knotted by me</h1>
+      <p> I love you today, tomorrow, and always.</p>
+    </div>
+  `;
+}
+
+function noClicked() {
+  document.getElementById("msg").innerText =
+    "eyyy dongaaa🔪gudhuthaaa😌";
+}
+
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.innerHTML = "❤️";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+}
+
+function confettiEffect() {
+  for (let i = 0; i < 120; i++) {
+    const c = document.createElement("div");
+    c.style.position = "fixed";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.top = "-10px";
+    c.style.width = "6px";
+    c.style.height = "6px";
+    c.style.background = "pink";
+    c.style.opacity = "0.8";
+    c.style.animation = "floatUp 3s linear";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3000);
+  }
+}
+</script>
+
+</body>
+</html>
